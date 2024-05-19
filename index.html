@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="form-container">
+      <h2>Login</h2>
+      <input type="email" placeholder="Email" required>
+      <input type="password" placeholder="Password" required>
+      <button class="button-85" onclick="redirectToMain()">Login</button>
+      <button class="button-85" onclick="redirectToSignUp()">Sign Up</button>
+    </div>
+  </div>
+
+  <script>
+    function redirectToMain() {
+      // Perform login actions here
+      // After successful login, redirect to main.html
+      window.location.href = 'main.html';
+    }
+
+    function redirectToSignUp() {
+      // Redirect to the sign-up page
+      window.location.href = 'signup.html';
+    }
+
+    // JavaScript for button shine effect
+    document.querySelectorAll('.button-85').forEach(button => {
+      button.addEventListener('mouseenter', () => {
+        button.style.boxShadow = '0 0 15px rgba(255, 255, 255, 0.6)';
+      });
+      button.addEventListener('mouseleave', () => {
+        button.style.boxShadow = 'none';
+      });
+    });
+  </script>
+</body>
+</html>
