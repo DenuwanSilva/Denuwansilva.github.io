@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="form-container">
+      <h2 id="form-title">Login</h2>
+      <div id="login-div">
+        <input type="email" id="email" placeholder="Email" required aria-label="Email">
+        <input type="password" id="password" placeholder="Password" required aria-label="Password">
+        <button class="button-85" onclick="login()">Login</button>
+      </div>
+      <div id="signup-div" style="display: none;">
+        <input type="email" id="signup-email" placeholder="Email" required aria-label="Email">
+        <input type="password" id="signup-password" placeholder="Password" required aria-label="Password">
+        <button class="button-85" onclick="signUp()">Sign Up</button>
+      </div>
+      <button id="toggle-button" class="button-85" onclick="toggleForm()">Sign Up</button>
+      <div class="loading-spinner"></div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY_HERE",
+      authDomain: "YOUR_AUTH_DOMAIN_HERE",
+      projectId: "YOUR_PROJECT_ID_HERE",
+      storageBucket: "YOUR_STORAGE_BUCKET_HERE",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID_HERE",
+      appId: "YOUR_APP_ID_HERE",
+      measurementId: "YOUR_MEASUREMENT_ID_HERE"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth();
+
+    window.login = function() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      showLoading(true);
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log('User logged in:', user);
+          alert('Logged in successfully');
+          window.location.href = "index.html";
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.error('Error logging in:', errorCode, errorMessage);
+          alert('Error: ' + errorMessage);
+        })
+        .finally(() => {
+          showLoading(false);
+        });
+    };
+
+    window.signUp = function() {
+      const email = document.getElementById('signup-email').value;
+      const password = document.getElementById('signup-password').value;
+
+      showLoading(true);
+
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log('User signed up:', user);
+          alert('Signed up successfully');
+          window.location.href = "index.html";
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.error('Error signing up:', errorCode, errorMessage);
+          alert('Error: ' + errorMessage);
+        })
+        .finally(() => {
+          showLoading(false);
+        });
+    };
+
+    window.toggleForm = function() {
+      const loginDiv = document.getElementById('login-div');
+      const signupDiv = document.getElementById('signup-div');
+      const formTitle = document.getElementById('form-title');
+      const toggleButton = document.getElementById('toggle-button');
+
+      if (signupDiv.style.display === 'none') {
+        signupDiv.style.display = 'block';
+        loginDiv.style.display = 'none';
+        formTitle.textContent = 'Sign Up';
+        toggleButton.textContent = 'Back to Login';
+      } else {
+        signupDiv.style.display = 'none';
+        loginDiv.style.display = 'block';
+        formTitle.textContent = 'Login';
+        toggleButton.textContent = 'Sign Up';
+      }
+
+      document.querySelector('.form-container').classList.add('form-transition');
+    };
+
+    function showLoading(show) {
+      const formContainer = document.querySelector('.form-container');
+      if (show) {
+        formContainer.classList.add('loading');
+      } else {
+        formContainer.classList.remove('loading');
+      }
+    }
+  </script>
+</body>
+</html>
