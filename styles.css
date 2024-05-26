@@ -1,0 +1,96 @@
+/* Container styles */
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #00FFFF, #F0FFFF);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  background-color: #F0FFFF;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.form-container.loading {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.form-container.form-transition {
+  transform: scale(1.05);
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+}
+
+input[type="email"],
+input[type="password"] {
+  width: 94%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+}
+
+.button-85 {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-85:hover {
+  background-color: #0056b3;
+}
+
+#toggle-button {
+  background-color: #28a745;
+}
+
+#toggle-button:hover {
+  background-color: #218838;
+}
+
+/* Loading spinner */
+.loading-spinner {
+  display: none;
+  width: 40px;
+  height: 40px;
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+.form-container.loading .loading-spinner {
+  display: block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
